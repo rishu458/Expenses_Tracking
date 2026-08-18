@@ -5,6 +5,9 @@ public class AuthResponse {
     private String name;
     private String email;
 
+    // Default constructor (Best practice for JSON frameworks)
+    public AuthResponse() {}
+
     public AuthResponse(String token, String name, String email) {
         this.token = token;
         this.name = name;

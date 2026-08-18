@@ -50,7 +50,7 @@ public class AuthController {
             return ResponseEntity.status(401).body("Invalid email or password");
         }
         String token = jwtUtil.generateToken(user.getEmail());
-        return ResponseEntity.ok(new AuthResponse("Login successful, welcome " + token, user.getName(), user.getEmail()));
+        return ResponseEntity.ok(new AuthResponse( token, user.getName(), user.getEmail()));
 
     }
 }

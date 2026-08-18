@@ -31,29 +31,38 @@ public class JwtAuthFilter extends OncePerRequestFilter {
                                     FilterChain filterChain) throws ServletException, IOException {
 
         final String authHeader = request.getHeader("Authorization");
-        final String jwt;
-        final String email;
 
+        // 1. Skip if no Bearer header is attached
         if (authHeader == null || !authHeader.startsWith("Bearer ")) {
             filterChain.doFilter(request, response);
             return;
         }
 
-        jwt = authHeader.substring(7);
-        email = jwtUtil.extractEmail(jwt);
+        final String jwt = authHeader.substring(7);
 
-        if (email != null && SecurityContextHolder.getContext().getAuthentication() == null) {
-            var userOptional = userRepository.findByEmail(email);
+        try {
+            // 2. Extract email/subject from token
+            final String email = jwtUtil.extractEmail(jwt);
 
-            if (userOptional.isPresent() && jwtUtil.validateToken(jwt, email)) {
-                UsernamePasswordAuthenticationToken authToken = new UsernamePasswordAuthenticationToken(
-                        email,
-                        null,
-                        Collections.emptyList() // Pass user authorities/roles here if needed
-                );
-                authToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
-                SecurityContextHolder.getContext().setAuthentication(authToken);
+            // 3. Authenticate if valid and context is not already established
+            if (email != null && SecurityContextHolder.getContext().getAuthentication() == null) {
+                var userOptional = userRepository.findByEmail(email);
+
+                if (userOptional.isPresent() && jwtUtil.validateToken(jwt, email)) {
+                    UsernamePasswordAuthenticationToken authToken = new UsernamePasswordAuthenticationToken(
+                            email,
+                            null,
+                            Collections.emptyList()
+                    );
+                    authToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
+
+                    // Set authentication in SecurityContext
+                    SecurityContextHolder.getContext().setAuthentication(authToken);
+                }
             }
+        } catch (Exception e) {
+            // Catches ExpiredJwtException, SignatureException, MalformedJwtException safely
+            logger.warn("JWT Token processing failed: " + e.getMessage());
         }
 
         filterChain.doFilter(request, response);
