@@ -5,6 +5,7 @@ import com.example.demo.model.Users;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
@@ -12,7 +13,6 @@ import java.util.Optional;
 public interface ExpenseRepository extends JpaRepository<Expense, Long> {
 
     List<Expense> findByUserOrderByTransactionDateDesc(Users user);
-
-
     Optional<Expense> findByIdAndUser(Long id, Users user);
+    List<Expense> findByUserAndTransactionDateBetween(Users user, LocalDate startDate, LocalDate endDate);
 }

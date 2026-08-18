@@ -26,7 +26,7 @@ public class ExpenseController {
         this.userRepository = userRepository;
     }
 
-    // 1. Add Expense
+    // Add Expense
     @PostMapping
     public ResponseEntity<?> addExpense(@RequestBody ExpenseRequest request, Authentication authentication) {
         Users user = userRepository.findByEmail(authentication.getName()).orElse(null);
@@ -45,7 +45,7 @@ public class ExpenseController {
         return ResponseEntity.ok(mapToResponse(saved));
     }
 
-    // 2. View Latest Expenses
+    // View Latest Expenses
     @GetMapping
     public ResponseEntity<?> getLatestExpenses(Authentication authentication) {
         Users user = userRepository.findByEmail(authentication.getName()).orElse(null);
