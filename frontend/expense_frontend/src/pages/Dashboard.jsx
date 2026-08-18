@@ -7,7 +7,8 @@ import {
   Calendar, 
   Flame, 
   ArrowUpRight, 
-  ArrowDownLeft 
+  ArrowDownLeft,
+  Banknote 
 } from 'lucide-react';
 
 export default function Dashboard() {
@@ -101,7 +102,7 @@ export default function Dashboard() {
             </h3>
           </div>
           <div className="p-3 bg-indigo-50 text-indigo-600 rounded-xl">
-            <DollarSign className="w-6 h-6" />
+            <Banknote className="w-6 h-6" />
           </div>
         </div>
       </div>

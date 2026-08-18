@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import axiosClient from '../api/axiosClient';
 import { useAuth } from '../context/AuthContext';
+import bgImage from '../assets/image.jpeg'; // Adjust path if your folder is named 'asset' instead of 'assets'
 
 export default function Login() {
   const [email, setEmail] = useState('');
@@ -23,10 +24,8 @@ export default function Login() {
         password: password.trim() 
       });
 
-      // 1. Check if token is directly available
       let token = res.data?.token;
 
-      // 2. If backend sent message containing "welcome <token>", extract it
       if (!token && res.data?.message) {
         const rawMsg = res.data.message;
         if (rawMsg.includes('welcome ')) {
@@ -36,13 +35,11 @@ export default function Login() {
         }
       }
 
-      // 3. Fallback check
       if (!token) {
         setError('Token missing in server response.');
         return;
       }
 
-      // 4. Save clean token and navigate
       login(token, { name: res.data?.name, email: res.data?.email });
       navigate('/dashboard');
 
@@ -58,9 +55,13 @@ export default function Login() {
   };
 
   return (
-    <div className="min-h-screen bg-slate-100 flex items-center justify-center p-4">
-      <div className="bg-white w-full max-w-md p-8 rounded-2xl shadow-sm border border-slate-200">
-        <h2 className="text-2xl font-bold text-slate-900 text-center">Welcome Back</h2>
+    <div 
+      className="min-h-screen bg-cover bg-center bg-no-repeat flex items-center justify-center p-4"
+      style={{ backgroundImage: `url(${bgImage})` }}
+    >
+      {/* Optional: Backdrop blur or overlay card styling */}
+      <div className="bg-white/95 backdrop-blur-sm w-full max-w-md p-8 rounded-2xl shadow-xl border border-slate-200">
+        <h2 className="text-2xl font-bold text-slate-900 text-center">Welcome Back to Expense Tracker</h2>
         <p className="text-sm text-slate-500 text-center mb-6">Sign in to your account</p>
 
         {error && (

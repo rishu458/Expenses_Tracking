@@ -10,7 +10,8 @@ import {
   DollarSign, 
   FileText, 
   Tag, 
-  AlertCircle 
+  AlertCircle,
+  Banknote 
 } from 'lucide-react';
 
 export default function Incomes() {
@@ -270,7 +271,7 @@ export default function Incomes() {
               <div>
                 <label className="block text-xs font-medium text-slate-600 mb-1">Amount (LKR) *</label>
                 <div className="relative">
-                  <DollarSign className="w-4 h-4 text-slate-400 absolute left-3 top-3" />
+                  <Banknote className="w-4 h-4 text-slate-400 absolute left-3 top-3" />
                   <input
                     type="number"
                     step="0.01"

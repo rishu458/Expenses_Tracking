@@ -1,7 +1,7 @@
 import React from 'react';
 import { NavLink, Outlet, useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
-import { LayoutDashboard, Receipt, Wallet, User, LogOut } from 'lucide-react';
+import { LayoutDashboard, Receipt, Wallet, User, LogOut,HandCoins } from 'lucide-react';
 
 export default function Layout() {
   const { user, logout } = useAuth();
@@ -28,7 +28,7 @@ export default function Layout() {
             {/* Logo */}
             <div className="flex items-center space-x-3">
               <div className="bg-indigo-600 p-2 rounded-lg text-white font-bold tracking-wider">
-                ET
+                <HandCoins className="w-5 h-5" />
               </div>
               <span className="text-xl font-semibold text-slate-800">ExpenseTracker</span>
             </div>
