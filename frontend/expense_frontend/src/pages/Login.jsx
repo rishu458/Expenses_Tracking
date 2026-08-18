@@ -1,9 +1,9 @@
-// src/pages/Login.jsx
+
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import axiosClient from '../api/axiosClient';
 import { useAuth } from '../context/AuthContext';
-import bgImage from '../assets/image.jpeg'; // Adjust path if your folder is named 'asset' instead of 'assets'
+import bgImage from '../assets/image.jpeg'; 
 
 export default function Login() {
   const [email, setEmail] = useState('');
@@ -59,7 +59,7 @@ export default function Login() {
       className="min-h-screen bg-cover bg-center bg-no-repeat flex items-center justify-center p-4"
       style={{ backgroundImage: `url(${bgImage})` }}
     >
-      {/* Optional: Backdrop blur or overlay card styling */}
+      
       <div className="bg-white/95 backdrop-blur-sm w-full max-w-md p-8 rounded-2xl shadow-xl border border-slate-200">
         <h2 className="text-2xl font-bold text-slate-900 text-center">Welcome Back to Expense Tracker</h2>
         <p className="text-sm text-slate-500 text-center mb-6">Sign in to your account</p>
